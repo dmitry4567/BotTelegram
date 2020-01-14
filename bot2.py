@@ -94,10 +94,11 @@ def checkR(value):
 
 def check(value):
     for k, v in dz.items():
-        if k == value:
-            return True
-        if value == 'дз':
-            return True
+        if value != "":
+            if k == value:
+                return True
+            if value == 'дз':
+                return True
 
 @bot.message_handler(commands=['start,help'])
 def command_handler(message: Message):
@@ -136,9 +137,9 @@ def echo_digits(message: Message):
 			else:
 				bot.send_message(message.chat.id,dz[message.text.split()[2].strip()])
 
-	if 'расписание' in message.text:
+	elif 'расписание' in message.text:
 
-		if 'на ' in message.text:
+		if 'на' in message.text:
 			if checkR(message.text.split()[2].strip()):
 				y = checkF(message.text.split()[2].strip())
 				f = date.get(y)
@@ -183,4 +184,4 @@ def echo_digits(message: Message):
 	else:	
 		bot.send_message(message.chat.id,'Я незнаю эту команду')
 
-bot.polling(timeout=60)
+bot.polling(none_stop=True)
